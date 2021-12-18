@@ -1,0 +1,15 @@
+{
+  "name": "vm-cypress",
+  "description": "Cypress tests for Vacation manager application",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cypress:open": "cypress open --config-file config/dev.json",
+    "cypress:run": "cypress run --browser firefox --config-file config/dev.json --spec 'cypress/tests/**/*.ts'",
+    "cy:verify": "cypress verify"
+  },
+  "devDependencies": {
+    "cypress": "^9.1.0",
+    "typescript": "~4.0.5"
+  }
+}

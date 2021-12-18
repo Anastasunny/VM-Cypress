@@ -1,0 +1,14 @@
+{
+  "env": {
+    "vmURL": "https://vm.softteco.com",
+    "vmAPI": "https://vm.softteco.com/api"
+},
+  "retries": {
+    "runMode": 3,
+    "openMode": 3
+  },
+  "video": false,
+  "screenshotOnRunFailure": false,
+  "integrationFolder": "cypress/tests",
+  "defaultCommandTimeout": 30000
+}
