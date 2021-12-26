@@ -1,0 +1,103 @@
+{
+  "id": 2660,
+  "userId": 1576,
+  "firstName": "Anastasia",
+  "lastName": "Malets",
+  "middleName": null,
+  "draft": true,
+  "dateTo": "2021-12-05",
+  "dateFrom": "2021-12-01",
+  "comment": null,
+  "days": 5,
+  "type": "DAY_OFF",
+  "status": "PENDING",
+  "managers": [
+    {
+      "id": 520,
+      "userId": 1503,
+      "firstName": "Katie",
+      "lastName": "Mazanik",
+      "middleName": null,
+      "departmentType": "MANAGEMENT",
+      "type": "PROJECT",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    },
+    {
+      "id": 315,
+      "userId": 351,
+      "firstName": "Maria",
+      "lastName": "Melnikova",
+      "middleName": null,
+      "departmentType": "MANAGEMENT",
+      "type": "PROJECT",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    },
+    {
+      "id": 341,
+      "userId": 1150,
+      "firstName": "Dmitriy",
+      "lastName": "Mikulich",
+      "middleName": null,
+      "departmentType": null,
+      "type": "PROJECT",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    },
+    {
+      "id": 267,
+      "userId": 667,
+      "firstName": "Natallia",
+      "lastName": "Atamaniuk",
+      "middleName": null,
+      "departmentType": "PRESALE",
+      "type": "SUPERVISOR",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    },
+    {
+      "id": 330,
+      "userId": 1122,
+      "firstName": "Olga",
+      "lastName": "Volzhankina",
+      "middleName": null,
+      "departmentType": "CUSTOMER",
+      "type": "SUPERVISOR",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    },
+    {
+      "id": 234,
+      "userId": 709,
+      "firstName": "Victor",
+      "lastName": "Petrov",
+      "middleName": null,
+      "departmentType": "OFFICE",
+      "type": "SUPERVISOR",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    },
+    {
+      "id": 491,
+      "userId": 1436,
+      "firstName": "Sergey",
+      "lastName": "Konon",
+      "middleName": null,
+      "departmentType": "TOP",
+      "type": "SUPERVISOR",
+      "topManager": false,
+      "customer": null,
+      "project": null
+    }
+  ],
+  "approvals": null,
+  "isEventCreatedInCalendar": false,
+  "eventUrl": null
+}

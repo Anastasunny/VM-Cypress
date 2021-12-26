@@ -1,5 +1,7 @@
 import googleCreds from '../fixtures/googleCreds.json'
 
+let api = Cypress.env('vmAPI')
+
 Cypress.Commands.add('signInWithGoogle', () => {
   cy.log('Logging in to Google')
 
@@ -43,6 +45,39 @@ Cypress.Commands.add('signInWithGoogle', () => {
     // Устанавливаем объект с ключом входа и пользовательскими данными в local storage браузера
     window.localStorage.setItem('googleCypress', JSON.stringify(userItem))
     window.localStorage.setItem('token', JSON.stringify(userItem.token))
+    })
+  })
+})
+
+Cypress.Commands.add('saveUserInfo', () => {
+
+  // This is to capture and save userInfo
+  cy.intercept({
+    method: 'GET',
+    url: '**/api/users/**',
+  }).as('userID')
+
+  // Trigger login action
+  cy.visit(`${Cypress.env('vmURL')}`)
+  cy.get('.jss10').click()
+    
+  cy.wait('@userID').then((interception) => {
+    cy.writeFile(
+      'cypress/fixtures/temp/userInfo.json',
+      `{"userId": "${interception.response.body.id}",
+      "bearerToken": "${interception.request.headers.authorization}"}`,
+    )   
+  })
+})
+
+Cypress.Commands.add('createApiStatement', (type) => {
+  cy.readFile('cypress/fixtures/temp/userInfo.json').then((userInfo) => {
+    const authorization = `${userInfo.bearerToken}`
+    cy.request({
+      method: 'POST',
+      url: `${api}/api/users/${userInfo.userId}/agreements`,
+      headers: { authorization }
+    }).then((response) => {
     })
   })
 })

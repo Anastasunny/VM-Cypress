@@ -3,12 +3,12 @@ export class MyStatementsPage {
     cy.visit(`${Cypress.env('VmURL')}` + `/statements`)
   }
 
-  get userName () {
-    return cy.get('span.jss28')
-  }
-
   get statementsTable () {
     return cy.get('.jss15')
+  }
+
+  get statementsTableRow () {
+    return cy.get('.MuiTableBody-root > :nth-child(1)')
   }
 
   get rightInfoCards () {

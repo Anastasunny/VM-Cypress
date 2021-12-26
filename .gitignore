@@ -1,1 +1,4 @@
 node_modules
+tests/cypress/cypress/fixtures/temp/
+tests/cypress/cypress/screenshots/
+tests/cypress/cypress/videos/
