@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "cypress:open": "cypress open --config-file config/dev.json",
+    "cypress:open": "cypress open --config-file config/dev.json --browser firefox",
     "cypress:run": "cypress run --browser firefox --config-file config/dev.json --spec 'cypress/tests/**/*.ts'",
     "cy:verify": "cypress verify"
   },
