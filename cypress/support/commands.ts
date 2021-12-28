@@ -70,14 +70,15 @@ Cypress.Commands.add('saveUserInfo', () => {
   })
 })
 
-Cypress.Commands.add('createApiStatement', (type) => {
+Cypress.Commands.add('totalStatementsAmount', () => {
   cy.readFile('cypress/fixtures/temp/userInfo.json').then((userInfo) => {
     const authorization = `${userInfo.bearerToken}`
     cy.request({
-      method: 'POST',
+      method: 'GET',
       url: `${api}/api/users/${userInfo.userId}/agreements`,
       headers: { authorization }
     }).then((response) => {
+      return response.body.totalElements
     })
   })
 })

@@ -26,6 +26,11 @@ describe('Regular user flow', () => {
     topBar.userName.should('have.text', 'Anastasia Malets')
   })
 
+  after(() => {
+    cy.clearCookies()
+    cy.clearLocalStorage()
+  })
+
   it('Statements page UI test', () => {
 
     //Мои заявления table, Info cards and Navigation menu are displayed

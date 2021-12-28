@@ -11,6 +11,7 @@ describe('Regular user flow', () => {
   const navigationMenu = new NavMenu()
   const newStatementPage = new NewStatementPage()
   const topBar = new TopBar()
+  let api = Cypress.env('vmAPI')
 
   beforeEach(() => {
 
@@ -20,6 +21,11 @@ describe('Regular user flow', () => {
 
     // All statements page components are displayed properly
     topBar.userName.should('have.text', 'Anastasia Malets')
+  })
+
+  after(() => {
+    cy.clearCookies()
+    cy.clearLocalStorage()
   })
 
   it('Managers are returned from API and autocompleted in a list', () => {
@@ -51,38 +57,52 @@ describe('Regular user flow', () => {
     })
   })
 
-  it('Create a dayOff statement (UI test)', () => {
-   
+  it.only('Create a dayOff statement (UI test)', () => {
+
+    let currentStatementsAmount
+       
     cy.intercept({
       method: 'POST',
       url: '**/agreements**',
     }).as('newStatement')
 
-    cy.visit(`${Cypress.env('vmURL')}/statements-create`)
+    cy.intercept({
+      method: 'GET',
+      url: '**/agreements**',
+    }).as('agreements')
 
-    newStatementPage.dateFrom.click()
-    newStatementPage.selectDay(1)
-    
-    newStatementPage.dateTo.click()
-    newStatementPage.selectDay(5)
+    cy.readFile('cypress/fixtures/temp/userInfo.json').then((userInfo) => {
+      const authorization = `${userInfo.bearerToken}`
+      cy.request({
+        method: 'GET',
+        url: `${api}/api/users/${userInfo.userId}/agreements`,
+        headers: { authorization }
+      }).then((response) => {
+        currentStatementsAmount = response.body.totalElements
 
-    newStatementPage.daysAmount.should('have.attr', 'value', '5')  
-    newStatementPage.saveDraft.click()
-    newStatementPage.saveButton.click()
+        cy.visit(`${Cypress.env('vmURL')}/statements-create`)
 
-    cy.wait('@newStatement').then((interception) => {
-      expect(interception.response.statusCode).to.be.eql(200)
+        newStatementPage.dateFrom.click()
+        newStatementPage.selectDay(1)
+        
+        newStatementPage.dateTo.click()
+        newStatementPage.selectDay(5)
 
-      myStatementsPage.statementsTableRow
-      .siblings()
-      .should(($rows) => {
-        expect($rows.length).to.be.greaterThan(0)
-      })
+        newStatementPage.daysAmount.should('have.attr', 'value', '5')  
+        newStatementPage.saveDraft.click()
+        newStatementPage.saveButton.click()
 
-      cy.readFile('cypress/fixtures/dayOffStatement.json').then((obj) => {
-        obj.id = `${interception.response.body.id + 1}`
-        obj.id = parseInt(obj.id)
-        cy.writeFile('cypress/fixtures/dayOffStatement.json', obj)
+        cy.wait('@newStatement').then((interception) => {
+          cy.readFile('cypress/fixtures/dayOffStatement.json').then((obj) => {
+            obj.id = `${interception.response.body.id + 1}`
+            obj.id = parseInt(obj.id)
+            cy.writeFile('cypress/fixtures/dayOffStatement.json', obj)
+          })
+        })
+
+        cy.wait('@agreements').then((interception) => {
+          expect(interception.response.body.totalElements).to.be.greaterThan(currentStatementsAmount)
+        })
       })
     })
   })

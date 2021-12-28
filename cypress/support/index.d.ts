@@ -6,11 +6,16 @@ declare namespace Cypress {
     /**
      * Path Google OAuth 2.0 authentication
      */
-    signInWithGoogle(): void
+     signInWithGoogle(): void
 
     /**
-     * Create draft of a new statement
+     * Save user info
      */
-     createDraftStatement(): void
-  }
+     saveUserInfo(): void
+
+      /**
+     * returns Total statmenets amount
+     */
+       totalStatementsAmount(): void
+      }
 }
